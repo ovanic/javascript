@@ -1,37 +1,61 @@
-// Arrays de los productos y precios de los mismos
-const nombreProductos = ["kiwi", "pera", "naranja", "limon", "banana"];
-const precioProductos = [500, 300, 200, 250, 500];
 
-// función para calcular el precio total al finalizar la simulación
-function calcularPrecioTotal(productos) {
-  let precioFinal = 0;
-  for (let i = 0; i < productos.length; i++) {
-    precioFinal += precioProductos[productos[i]];
-  }
-  return precioFinal;
-}
+    const products = [
+        {name: "kiwi", price: 3000},
+        {name: "pera", price: 1500},
+        {name: "naranja", price: 1600},
+        {name: "limon", price: 1700},
+        {name: "banana", price: 2000},
+        {name: "mango", price: 3500}
+    ]
 
-// funcion para el proceso de toda la compra de los productos
-function comprarProductos() {
+     let totalPriceElement = document.getElementById("total");
+     let totalPrice = 0;
 
-  alert("Bienvenido a la verduleria.");
+ const addButtons = document.querySelectorAll(".button-add");
+addButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        addToCart(this);
+    });
+});
 
-  const productosAComprar = [];
-  
-  for (let i = 0; i < 5; i++) {
-    let indiceProductos;
-    do {
-        indiceProductos = parseInt(prompt(`Ingresa el numero (0-4) del producto ${i + 1} que quieres comprar:\n0: Kiwi\n1: Pera\n2: Naranja\n3: Limon\n4: Banana`));
-    } while (isNaN(indiceProductos) || indiceProductos < 0 || indiceProductos > 4);
+function addToCart(button) {
     
-    productosAComprar.push(indiceProductos); 
-  }
-  
-  // se calcula el precio total de la suma de los 5 productos a comprar
-  const precioFinal = calcularPrecioTotal(productosAComprar);
-  
-  
-  console.log(`El precio final seria de AR$${precioFinal.toFixed(2)}. Gracias por su commpra!`);
+    let product = button.parentElement;
+    
+    let index = Array.from(product.parentElement.children).indexOf(product);
+    
+    let price = products[index].price;
+
+    let quantityElement = product.querySelector(".cantidad");
+
+    let quantity = parseInt(quantityElement.value);
+    
+    let totalPriceElement = document.getElementById("total");
+    let totalPrice = parseFloat(totalPriceElement.innerText);
+    totalPrice += price * quantity;
+    totalPriceElement.innerText = totalPrice.toFixed(2);
 }
 
-comprarProductos();
+let payButton = document.querySelector(".button-pay");
+payButton.addEventListener("click", function() {
+    pay();
+});
+
+function pay() {
+    let cart = [];
+    const items = document.querySelectorAll(".producto");
+    totalPrice = 0;
+    items.forEach(function(item, index) {
+        let name = item.querySelector("h2").innerText;
+        let priceText = item.querySelector("h3").innerText;
+        let price = parseFloat(priceText.match(/\d+/)[0]);
+        let quantity = parseInt(item.querySelector(".cantidad").value);
+        cart.push({ name: name, price: price, quantity: quantity });
+        totalPrice += price * quantity;
+    
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("totalPrice", totalPrice);
+    console.log("productos agregados, el total seria: $" + totalPrice.toFixed(2));}
+
+    

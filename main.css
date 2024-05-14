@@ -1,0 +1,63 @@
+body{
+    margin: 0px;
+    background-color: cornsilk;
+}
+
+.page-index{
+border: 1px solid black;
+background-color: darkgoldenrod;
+}
+.page-index h1{
+    text-align: center;
+}
+
+button{
+   text-align: center; 
+}
+.contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    border: 3px solid black;
+  }
+  .contenedor .producto {
+   padding: 10px;
+   position: relative;
+  }
+  .contenedor .producto h3{
+    margin-bottom: 15px;
+    margin-left: 10px;
+  }
+  .producto:hover{
+    box-shadow: 0px 8px 16px 0 black;
+  }
+  .producto img{
+    width: 260px;
+    height: 260px;
+  }
+  
+  .button-add {
+    transition-duration: 0.4s;
+    margin-top: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    position: absolute;
+    right: 15px;
+    bottom: 20px;
+  }
+
+  .button-pay{
+    font-size: 20px;
+    margin-top: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-left: 325px;
+  }
+
+  button:hover {
+    background-color: black;
+    color: white;
+  }
+  
